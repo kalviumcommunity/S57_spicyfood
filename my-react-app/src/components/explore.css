@@ -1,0 +1,30 @@
+.explore-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .explore-heading {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  .explore-image {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+  }
+  
+  .ingredients {
+    margin-bottom: 40px;
+  }
+  
+  .ingredients h2 {
+    font-size: 24px;
+  }
+  
+  .recipe {
+    font-size: 18px;
+  }
+  
+ 
+  
