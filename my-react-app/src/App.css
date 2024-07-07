@@ -7,7 +7,7 @@
   background-image: url('./components/assets/background.png');
   display: flex;
   flex-direction: column;
-  justify-content: center; 
+  justify-content: center;
   align-items: center; 
 }
 
@@ -17,9 +17,9 @@
   /* justify-content: space-between; */
   align-items: center;
   color: white;
-  position: relative;
+  position:relative;
   bottom: 150px;
-  right: 250px;
+  right:200px;
 }
 .homeButton {
   background-color: black;
@@ -42,14 +42,14 @@
 }
 
 .content {
-  text-align: center;
-  color: white;
+  text-align:left;
+  color: black;
 }
 
 .tagline {
-  color: white;
-  right: 20px;
-  font-size: 60px; 
+  color:white;
+  right:100px;
+  font-size: 75px; 
   position: relative;
 }
 
@@ -67,7 +67,7 @@
   border-radius: 5px;
   position: relative;
   bottom: 70px;
-  left: 50px;
+  left: 250px;
 }
 
 .footerButton:hover {
