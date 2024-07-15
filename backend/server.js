@@ -3,7 +3,7 @@ const app=express();
 const mongoose=require('mongoose');
 const {connectDb,checkConnected }=require('./db');
 const router = require('./route');
-const port= 3000;
+const port= 3002;
 
 app.get('/ping',(req,res)=>{
     res.send("pong")  
@@ -20,7 +20,7 @@ app.get("/home",(req,res)=>{
 app.use(express.json());
 app.use(router)
 
-app.listen(port,async()=>{
+app.listen(port || 3001,async()=>{
     try{
        await connectDb()
        if(checkConnected()){
