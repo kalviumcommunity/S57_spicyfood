@@ -9,6 +9,13 @@ app.get('/ping',(req,res)=>{
     res.send("pong")  
 })
 
+app.get("/home",(req,res)=>{
+    res.json({
+        message:checkConnected()?"Database is connected" : "Database is disconnected"
+    })
+
+})
+   
 
 app.use(express.json());
 app.use(router)
