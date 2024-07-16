@@ -11,7 +11,7 @@
   .explore-image {
     width: 100%;
     max-width: 500px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
   }
   
   .ingredients {
@@ -26,5 +26,24 @@
     font-size: 18px;
   }
   
- 
+  .explore-container {
+    text-align: center;
+  }
+  
+  .ingredients {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ingredientsList {
+    list-style-position: inside; /* Ensure bullets are inside */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .ingredientsList li {
+    text-align: left; /* Align text to the left */
+    margin: 5px 0; /* Optional: Add spacing between items */
+  }
   
