@@ -23,4 +23,4 @@ const data = new mongoose.Schema({
 
 });
 const dataset = mongoose.model('dataset',data);
-module.exports= dataset
+module.exports = dataset

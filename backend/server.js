@@ -1,8 +1,8 @@
 const express= require('express');
 const app=express();
 const mongoose=require('mongoose');
-const {connectDb,checkConnected }=require('./db');
-const router = require('./route');
+const {connectDb,checkConnected }=require('./config/db');
+const router = require('./Routes/route');
 const port= 3002;
 
 app.get('/ping',(req,res)=>{
@@ -18,7 +18,7 @@ app.get("/home",(req,res)=>{
    
 
 app.use(express.json());
-app.use(router)
+app.use("/", router)
 
 app.listen(port || 3001,async()=>{
     try{

@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const spicyfood = require('./schema');
+const spicyfood = require('../Schema/schema');
 
 router.get('/', async (req, res) => {
     try {
         const spicyfoods = await spicyfood.find();
+        console.log(spicyfood)
         res.json(spicyfoods);
     } catch (err) {
         res.status(500).json({ error: err.message });
