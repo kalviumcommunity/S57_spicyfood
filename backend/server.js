@@ -4,6 +4,7 @@ const mongoose=require('mongoose');
 const {connectDb,checkConnected }=require('./config/db');
 const router = require('./Routes/route');
 const port= 3002;
+const cors = require("cors")
 
 app.get('/ping',(req,res)=>{
     res.send("pong")  
@@ -16,7 +17,7 @@ app.get("/home",(req,res)=>{
 
 })
    
-
+app.use(cors())
 app.use(express.json());
 app.use("/", router)
 
