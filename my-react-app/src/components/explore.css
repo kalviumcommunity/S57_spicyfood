@@ -1,49 +1,128 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.create-button {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-food-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.add-food-form div {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.add-food-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.add-food-form input {
+  width: calc(100% - 20px);
+  padding: 5px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-food-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-food-form button:hover {
+  background-color: #0056b3;
+}
+
+.dish-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
+  width: 300px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.dish-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.dish-card h2 {
+  margin: 10px 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.dish-card p {
+  margin: 5px 0;
+  color: #666;
+}
+
 .explore-container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .explore-heading {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
-  .explore-image {
-    width: 100%;
-    max-width: 500px;
-    margin-bottom: 50px;
-  }
-  
-  .ingredients {
-    margin-bottom: 40px;
-  }
-  
-  .ingredients h2 {
-    font-size: 24px;
-  }
-  
-  .recipe {
-    font-size: 18px;
-  }
-  
-  .explore-container {
-    text-align: center;
-  }
-  
-  .ingredients {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .ingredientsList {
-    list-style-position: inside; /* Ensure bullets are inside */
-    padding: 0;
-    margin: 0;
-  }
-  
-  .ingredientsList li {
-    text-align: left; /* Align text to the left */
-    margin: 5px 0; /* Optional: Add spacing between items */
-  }
-  
+  text-align: center;
+  padding: 20px;
+}
+
+.explore-heading {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.explore-image {
+  width: 100%;
+  max-width: 500px;
+  margin-bottom: 50px;
+}
+
+.ingredients {
+  margin-bottom: 40px;
+}
+
+.ingredients h2 {
+  font-size: 24px;
+}
+
+.recipe {
+  font-size: 18px;
+}
+
+.ingredients {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ingredientsList {
+  list-style-position: inside; /* Ensure bullets are inside */
+  padding: 0;
+  margin: 0;
+}
+
+.ingredientsList li {
+  text-align: left; /* Align text to the left */
+  margin: 5px 0; /* Optional: Add spacing between items */
+}
