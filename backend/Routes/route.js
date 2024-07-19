@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const spicyfood = require('./schema');
+const spicyfood = require('../Schema/schema');
 
 router.get('/', async (req, res) => {
     try {
         const spicyfoods = await spicyfood.find();
+        console.log(spicyfood)
         res.json(spicyfoods);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -25,10 +26,12 @@ router.get('/:id', async (req, res) => {
 
 router.post('/add-food', async (req, res) => {
     const newSpicyfood = new spicyfood({
+        Image:req.body.Image,
         Dish_Name: req.body.Dish_Name,
         type:req.body.type,
         Ingridents: req.body.Ingridents,
         Origin: req.body.Origin,
+        
     })
     try {
         const saveSpicyfood = await newSpicyfood.save();
