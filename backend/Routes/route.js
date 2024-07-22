@@ -41,7 +41,7 @@ router.post('/add-food', async (req, res) => {
     }
 });
 
-router.patch('/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try {
         const updatedSpicyfood = await spicyfood.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!updatedSpicyfood) {
@@ -53,7 +53,7 @@ router.patch('/:id', async (req, res) => {
     }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/delete-food/:id', async (req, res) => {
     try {
         const deletedSpicyfood = await spicyfood.findByIdAndDelete(req.params.id);
         if (!deletedSpicyfood) {
