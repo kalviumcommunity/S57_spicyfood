@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const spicyfood = require('../Schema/schema');
+const { validate } = require('./validation');
+const foodValidationSchema = require('./validation');
 
 router.get('/', async (req, res) => {
     try {
@@ -25,6 +27,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/add-food', async (req, res) => {
+    const{error}=foodValidationSchema.validate(req.body);
+    if(error){
+        return res.status(400).json({errors:error.details.map(detail=>detail.message) });
+    }
+    
     const newSpicyfood = new spicyfood({
         Image:req.body.Image,
         Dish_Name: req.body.Dish_Name,
@@ -40,7 +47,8 @@ router.post('/add-food', async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 });
-
+    
+    
 router.put('/:id', async (req, res) => {
     try {
         const updatedSpicyfood = await spicyfood.findByIdAndUpdate(req.params.id, req.body, { new: true });
