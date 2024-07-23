@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import "./explore.css";
-import phalImage from './assets/phal.webp';
-import axios from "axios";
+import './explore.css';
+import axios from 'axios';
+import UpdatePopup from './UpdatePopup';
 
 function Explore() {
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false);
+  const [showUpdatePopup, setShowUpdatePopup] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [formData, setFormData] = useState({
     Image: '',
     Dish_Name: '',
@@ -18,7 +20,6 @@ function Explore() {
     const fetchSpicyFoods = async () => {
       try {
         const response = await axios.get('http://localhost:3002/');
-        console.log(response.data);
         setData(response.data);
       } catch (err) {
         console.log(err);
@@ -40,7 +41,6 @@ function Explore() {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:3002/add-food', formData);
-      console.log(response.data);
       setData([...data, response.data]); // Update the list with the new dish
       setShowForm(false); // Hide the form after successful submission
       setFormData({ // Reset the form fields
@@ -50,10 +50,27 @@ function Explore() {
         Ingridents: '',
         Origin: ''
       });
-      console.log(formData)
     } catch (error) {
       console.error('There was an error submitting the form!', error);
     }
+  };
+
+  const handleUpdate = (id) => {
+    setSelectedId(id);
+    setShowUpdatePopup(true);
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3002/delete-food/${id}`);
+      setData(data.filter(dish => dish._id !== id));
+    } catch (error) {
+      console.error('There was an error deleting the dish!', error);
+    }
+  };
+
+  const handleUpdateSubmit = (id, updatedData) => {
+    setData(data.map(dish => (dish._id === id ? updatedData : dish)));
   };
 
   return (
@@ -90,13 +107,25 @@ function Explore() {
 
       {data.map(dish => (
         <div key={dish._id} className="dish-card">
-          <img src={dish.Image} alt="No image" className='images' />
+          <div className="dish-card-header">
+            <button onClick={() => handleUpdate(dish._id)} className="update-button">Update</button>
+            <button onClick={() => handleDelete(dish._id)} className="delete-button">Delete</button>
+          </div>
+          <img src={dish.Image} alt="No image" className="images" />
           <h2>{dish.Dish_Name}</h2>
           <p><strong>Type:</strong> {dish.type}</p>
           <p><strong>Ingredients:</strong> {dish.Ingridents}</p>
           {dish.Origin && <p><strong>Origin:</strong> {dish.Origin}</p>}
         </div>
       ))}
+
+      {showUpdatePopup && (
+        <UpdatePopup
+          id={selectedId}
+          onClose={() => setShowUpdatePopup(false)}
+          onUpdate={handleUpdateSubmit}
+        />
+      )}
     </div>
   );
 }
