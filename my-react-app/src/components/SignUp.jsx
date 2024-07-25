@@ -6,6 +6,7 @@ function SignUp() {
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: '',
+    email: '',
     password: '',
   });
 
@@ -14,31 +15,25 @@ function SignUp() {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    
+    const response = await fetch('http://localhost:3002/users/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(form),
+    });
 
-    // Fetch existing users from local storage
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-
-    // Check if the user exists with the same name
-    const existingUser = users.find((user) => user.name === form.name);
-
-    if (existingUser) {
-      // If the password doesn't match, alert and prevent sign-up
-      if (existingUser.password !== form.password) {
-        alert('Incorrect password for this user. Please try again.');
-        return;
-      }
-
-      // If the name and password match, allow sign-up
-      alert('Welcome back! You can now sign up.');
-      navigate('/'); // Redirect to home after successful sign-up
-      return;
+    if (response.ok) {
+      // Redirect to sign-in page on successful sign-up
+      alert("Signup sucessful Now login..")
+      navigate('/signIn');
+    } else {
+      // Handle error case
+      console.error('Sign-up failed');
     }
-
-    // If the user does not exist, prevent sign-up and ask them to sign in
-    alert('User does not exist. Please sign in.');
-    navigate('/signIn'); // Redirect to sign-in page
   };
 
   return (
@@ -52,6 +47,16 @@ function SignUp() {
             id="name" 
             name="name" 
             value={form.name} 
+            onChange={handleInputChange} 
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Email:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            value={form.email} 
             onChange={handleInputChange} 
           />
         </div>

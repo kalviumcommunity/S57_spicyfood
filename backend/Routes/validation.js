@@ -1,5 +1,6 @@
 const Joi = require('joi');
 
+
 const foodValidationSchema = Joi.object({
     Dish_Name: Joi.string().required(),
     type: Joi.string().required(),
@@ -8,4 +9,13 @@ const foodValidationSchema = Joi.object({
     Image: Joi.string().uri().required(),
 });
 
-module.exports = foodValidationSchema;
+const usersValidationSchema = Joi.object({
+    name:Joi.string().required(),
+    password:Joi.string().required(),
+    email:Joi.string().required(),
+})
+
+
+module.exports = {foodValidationSchema,usersValidationSchema};
+
+

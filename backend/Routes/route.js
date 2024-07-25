@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const spicyfood = require('../Schema/schema');
 const { validate } = require('./validation');
-const foodValidationSchema = require('./validation');
+const joi= require("joi");
+const {foodValidationSchema} = require('./validation');
+const {usersValidationSchema}= require("./validation")
 
 router.get('/', async (req, res) => {
     try {
@@ -47,7 +49,9 @@ router.post('/add-food', async (req, res) => {
         res.status(400).json({ error: err.message });
     }
 });
-    
+
+
+
     
 router.put('/:id', async (req, res) => {
     try {

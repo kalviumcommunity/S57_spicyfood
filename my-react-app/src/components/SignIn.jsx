@@ -1,87 +1,53 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SignIn.css';
 
-function SignIn() {
-  const navigate = useNavigate();
-  const [form, setForm] = useState({
-    name: '',
-    password: '',
-    confirmPassword: '',
-  });
+const SignIn = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setForm({ ...form, [name]: value });
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await axios.post('http://localhost:3002/users/signin', { email, password });
+            // Handle successful signup
+            console.log(res.data);
+            alert("Sign IN Sucessful")
+            navigate("/")
+        } catch (err) {
+            setError(err.response.data.errors);
+        }
+    };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords don't match!");
-      return;
-    }
-
-    // Check if the user is already signed up
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const userExists = users.some((u) => u.email === form.email);
-
-    if (userExists) {
-      alert(' Please sign up.');
-      navigate('/'); // Redirect to sign-up if already registered
-      return;
-    }
-
-    // If not registered, store user information
-    users.push({
-      name: form.name,
-      password: form.password,
-    });
-    localStorage.setItem('users', JSON.stringify(users));
-
-    // Redirect to the home page after sign-in
-    navigate('/');
-  };
-
-  return (
-    <div className="signin-container">
-      <h2 className="signin-heading">Sign In</h2>
-      < form className="signin-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="name">Name:</label>
-          <input 
-            type="text" 
-            id="name" 
-            name="name" 
-            value={form.name} 
-            onChange={handleInputChange} 
-          />
+    return (
+        <div className="signup-container">
+            <h2>SignIn</h2>
+            {error && <p className="error">{error}</p>}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label>Email:</label>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                </div>
+                <div>
+                    <label>Password:</label>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button type="submit">SignIn</button>
+            </form>
         </div>
-       
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            value={form.password} 
-            onChange={handleInputChange} 
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input 
-            type="password" 
-            id="confirmPassword" 
-            name="confirmPassword" 
-            value={form.confirmPassword} 
-            onChange={handleInputChange} 
-          />
-        </div>
-        <button type="submit" className="signin-button">Sign In</button>
-      </form>
-    </div>
-  );
-}
+    );
+};
 
 export default SignIn;
