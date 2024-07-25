@@ -23,8 +23,9 @@ const data = new mongoose.Schema({
     Image:{
         type:String,
         require:true
-    },
+    }
 
 });
+
 const dataset = mongoose.model('dataset',data);
 module.exports = dataset
