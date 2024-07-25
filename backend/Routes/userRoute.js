@@ -6,12 +6,11 @@ const { usersValidationSchema } = require('./validation');
 
 // Create a new user (Sign-up)
 userRouter.post('/signup', async (req, res) => {
-  console.log(req.body);
+
   try {
     const { error } = usersValidationSchema.validate(req.body);
     if (error) {
-        console.log(error.message)
-      return res.status(400).json({ message: error.details[0].message });
+          return res.status(400).json({ message: error.details[0].message });
     }
 
     const { name, email, password } = req.body;
@@ -37,7 +36,7 @@ userRouter.post('/signup', async (req, res) => {
 
 // Sign in user
 userRouter.post('/signin', async (req, res) => {
-    console.log(req.body)
+
     try {
         const { email, password } = req.body;
         
