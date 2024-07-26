@@ -4,8 +4,10 @@ const mongoose=require('mongoose');
 const {connectDb,checkConnected }=require('./config/db');
 const router = require('./Routes/route');
 const port= 3002;
-const cors = require("cors");
+const cors = require("cors")
+const cookieParser = require('cookie-parser');
 const userRouter = require('./Routes/userRoute');
+
 
 
 app.get("/home",(req,res)=>{
@@ -15,8 +17,13 @@ app.get("/home",(req,res)=>{
 
 })
    
-app.use(cors())
+// Enable CORS with credentials
+app.use(cors({
+    origin: 'http://localhost:5173', // replace with your frontend's origin
+    credentials: true
+}));
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/", router)
 app.use("/users", userRouter)

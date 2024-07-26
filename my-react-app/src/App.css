@@ -108,3 +108,24 @@
 .images{
   width: 300px;
 }
+
+/* App.css */
+.logout-button {
+  background-color: #ff6347; /* Tomato color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.logout-button:hover {
+  background-color: #ff4500; /* OrangeRed color */
+}
+
+.logout-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
