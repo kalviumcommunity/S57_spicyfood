@@ -4,7 +4,6 @@ const spicyfood = require("../Schema/schema");
 const { validate } = require("./validation");
 const joi = require("joi");
 const { foodValidationSchema } = require("./validation");
-const { usersValidationSchema } = require("./validation");
 
 router.get("/", async (req, res) => {
   try {

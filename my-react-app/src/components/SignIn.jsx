@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
@@ -11,11 +12,17 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post('http://localhost:3002/users/signin', { email, password });
+            const res = await axios.post('http://localhost:3002/users/signin', { email, password }, { withCredentials: true });
             // Handle successful signup
             console.log(res.data);
-            alert("Sign IN Sucessful")
-            navigate("/")
+            alert("Sign IN Successful");
+
+            // Read the cookie
+            const username =  Cookies.get('username');
+            console.log(`Username from cookie: ${username}`);
+
+            // Optionally, navigate to another page
+            navigate("/");
         } catch (err) {
             setError(err.response.data.errors);
         }
