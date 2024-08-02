@@ -23,7 +23,14 @@ const data = new mongoose.Schema({
     Image:{
         type:String,
         require:true
+    },
+
+    created_by: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User', 
+        required: true
     }
+
 
 });
 
