@@ -62,11 +62,6 @@ function Explore() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setUserId(localStorage.getItem('userId'))
-    setFormData({
-      ...formData,
-      created_by: userId
-    });
 
     try {
       const response = await axios.post('http://localhost:3002/add-food', formData);
@@ -167,17 +162,6 @@ function Explore() {
           onUpdate={handleUpdateSubmit}
         />
       )}
-
-      {/* {selectedUserId && (
-        <div>
-          <h3>Dishes Created by Selected User</h3>
-          <ul>
-            {dishes.map(dish => (
-              <li key={dish._id}>{dish.Dish_Name}</li>
-            ))}
-          </ul>
-        </div>
-      )} */}
     </div>
   );
 }

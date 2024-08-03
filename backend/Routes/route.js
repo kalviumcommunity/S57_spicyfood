@@ -44,7 +44,7 @@ router.post("/add-food", async (req, res) => {
     created_by: req.body.created_by // Pass the user's ID
   });
 
-  console.log(newSpicyfood)
+  // console.log(newSpicyfood)
   try {
     const saveSpicyfood = await newSpicyfood.save();
     res.json(saveSpicyfood);
@@ -82,7 +82,7 @@ router.delete("/delete-food/:id", async (req, res) => {
 });
 router.get("/user/:userId", async (req, res) => {
   try {
-    console.log(req.params)
+    // console.log(req.params)
     const userSpicyfoods = await spicyfood.find({ created_by: req.params.userId });
     res.json(userSpicyfoods);
   } catch (err) {
