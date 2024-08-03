@@ -63,7 +63,7 @@ userRouter.post('/signin', async (req, res) => {
 
     // Set the token in a cookie
     res.cookie('token', token, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000 }); // 1 day
-    res.json({ message: 'Sign-in successful' });
+    res.json({ message: 'Sign-in successful', user : user });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -89,5 +89,6 @@ userRouter.get('/protected', (req, res) => {
     res.status(401).json({ message: 'Invalid token' });
   }
 });
+
 
 module.exports = userRouter;

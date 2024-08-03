@@ -2,19 +2,26 @@ import React, { useEffect, useState } from 'react';
 import './explore.css';
 import axios from 'axios';
 import UpdatePopup from './UpdatePopup';
+import UserDropdown from './dropdown';
 
 function Explore() {
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [showUpdatePopup, setShowUpdatePopup] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
+  // State for managing selected user and dishes
+  const [selectedUserId, setSelectedUserId] = useState('');
+  const [userId, setUserId] = useState('');
+  // const [dishes, setDishes] = useState([]);
   const [formData, setFormData] = useState({
     Image: '',
     Dish_Name: '',
     type: '',
     Ingridents: '',
-    Origin: ''
+    Origin: '',
+    created_by:''
   });
+
 
   useEffect(() => {
     const fetchSpicyFoods = async () => {
@@ -29,26 +36,52 @@ function Explore() {
     fetchSpicyFoods();
   }, []);
 
+  // Fetch dishes when a user is selected
+  useEffect(() => {
+    if (selectedUserId) {
+      axios.get(`http://localhost:3002/user/${selectedUserId}`)
+        .then(response => {
+          console.log(response)
+          setData(response.data)
+        })
+        .catch(error => console.error('Error fetching dishes:', error));
+    } else {
+      // setDishes([]); // Clear dishes if no user is selected
+    }
+  }, [selectedUserId]);
+
   const handleChange = (e) => {
+    setUserId(localStorage.getItem('userId'));
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
+      created_by: userId
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setUserId(localStorage.getItem('userId'))
+    setFormData({
+      ...formData,
+      created_by: userId
+    });
+
     try {
       const response = await axios.post('http://localhost:3002/add-food', formData);
       setData([...data, response.data]); // Update the list with the new dish
       setShowForm(false); // Hide the form after successful submission
+
+
+      console.log(userId)
       setFormData({ // Reset the form fields
         Image: '',
         Dish_Name: '',
         type: '',
         Ingridents: '',
-        Origin: ''
+        Origin: '',
+        created_by: ''
       });
     } catch (error) {
       console.error('There was an error submitting the form!', error);
@@ -78,6 +111,14 @@ function Explore() {
       <button onClick={() => setShowForm(!showForm)} className="create-button">
         {showForm ? "Close Form" : "Create"}
       </button>
+
+      <div className="App">
+        <h1>Spicy Food Database</h1>
+        <UserDropdown 
+          selectedUserId={selectedUserId}
+          setSelectedUserId={setSelectedUserId}
+        />
+      </div>
 
       {showForm && (
         <form onSubmit={handleSubmit} className="add-food-form">
@@ -126,6 +167,17 @@ function Explore() {
           onUpdate={handleUpdateSubmit}
         />
       )}
+
+      {/* {selectedUserId && (
+        <div>
+          <h3>Dishes Created by Selected User</h3>
+          <ul>
+            {dishes.map(dish => (
+              <li key={dish._id}>{dish.Dish_Name}</li>
+            ))}
+          </ul>
+        </div>
+      )} */}
     </div>
   );
 }
