@@ -8,7 +8,7 @@ const { foodValidationSchema } = require("./validation");
 router.get("/", async (req, res) => {
   try {
     const spicyfoods = await spicyfood.find();
-    console.log(spicyfood);
+    // console.log(spicyfood);
     res.json(spicyfoods);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -41,7 +41,10 @@ router.post("/add-food", async (req, res) => {
     type: req.body.type,
     Ingridents: req.body.Ingridents,
     Origin: req.body.Origin,
+    created_by: req.body.created_by // Pass the user's ID
   });
+
+  // console.log(newSpicyfood)
   try {
     const saveSpicyfood = await newSpicyfood.save();
     res.json(saveSpicyfood);
@@ -77,5 +80,21 @@ router.delete("/delete-food/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+router.get("/user/:userId", async (req, res) => {
+  try {
+    // console.log(req.params)
+    const userSpicyfoods = await spicyfood.find({ created_by: req.params.userId });
+    res.json(userSpicyfoods);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+
+
+
+
+
 
 module.exports = router;

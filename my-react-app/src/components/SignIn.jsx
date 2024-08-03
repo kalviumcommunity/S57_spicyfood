@@ -17,9 +17,7 @@ const SignIn = () => {
             console.log(res.data);
             alert("Sign IN Successful");
 
-            // Read the cookie
-            const username =  Cookies.get('username');
-            console.log(`Username from cookie: ${username}`);
+        localStorage.setItem('userId', res.data.user._id);
 
             // Optionally, navigate to another page
             navigate("/");

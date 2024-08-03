@@ -7,6 +7,7 @@ const foodValidationSchema = Joi.object({
     Ingridents: Joi.string().required(),
     Origin: Joi.string().required(),
     Image: Joi.string().uri().required(),
+    created_by : Joi.string().required(),
 });
 
 const usersValidationSchema = Joi.object({
